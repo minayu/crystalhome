@@ -6,18 +6,18 @@ package minayu.crystalhome;
 
 public class Assign {
     private int id;
-    private String appname;
+    private String appName;
 
-    public Assign(int id, String appname) {
+    public Assign(int id, String appName) {
         this.id = id;
-        this.appname = appname;
+        this.appName = appName;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getAppname() {
-        return appname;
+    public String getAppName() {
+        return appName;
     }
 }

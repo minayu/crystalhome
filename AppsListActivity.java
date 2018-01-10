@@ -3,10 +3,12 @@ package minayu.crystalhome;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,12 +25,15 @@ public class AppsListActivity extends AppCompatActivity {
     private PackageManager manager;
     private List<ListItem> apps;
     private ListView list;
+    private int AssignedFlg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apps_list);
 
+        Intent i = getIntent();
+        AssignedFlg = i.getIntExtra("Flg", 0);
         loadApps();
         loadListView();
         addClickListener();
@@ -83,8 +88,16 @@ public class AppsListActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = manager.getLaunchIntentForPackage(apps.get(position).name.toString());
-                AppsListActivity.this.startActivity(i);
+                if (AssignedFlg == 1) {
+                    Intent i = manager.getLaunchIntentForPackage(apps.get(position).name.toString());
+                    AppsListActivity.this.startActivity(i);
+                } else {
+                    AssignSQLiteOpenHelper helper = new AssignSQLiteOpenHelper(AppsListActivity.this);
+                    Assign src = new Assign(1, apps.get(position).name.toString());
+                    helper.insertAssign(src);
+                    Intent i = new Intent(AppsListActivity.this, MainActivity.class);
+                    startActivity(i);
+                }
             }
         });
     }

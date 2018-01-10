@@ -19,6 +19,8 @@ import java.util.List;
  public class MainActivity extends AppCompatActivity implements View.OnTouchListener {
     private AssignSQLiteOpenHelper helper;
     private PackageManager manager;
+    // アプリ登録未登録での分岐用
+    private int AssignedFlg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,15 @@ import java.util.List;
 
         helper = new AssignSQLiteOpenHelper(MainActivity.this);
 
+        //for文化する
         findViewById(R.id.button1).setOnTouchListener(this);
+        findViewById(R.id.button2).setOnTouchListener(this);
+        findViewById(R.id.button3).setOnTouchListener(this);
+        findViewById(R.id.button4).setOnTouchListener(this);
+        findViewById(R.id.button5).setOnTouchListener(this);
+        findViewById(R.id.button6).setOnTouchListener(this);
+        findViewById(R.id.button7).setOnTouchListener(this);
+        findViewById(R.id.button8).setOnTouchListener(this);
         findViewById(R.id.button9).setOnTouchListener(this);
     }
 
@@ -50,22 +60,51 @@ import java.util.List;
      public boolean onTouch(View v, MotionEvent event) {
         int id = v.getId();
         switch(id) {
-            case R.id.button9:
-                if (helper.getItemFromId(9) == null) {
-                    Log.d("tmp", String.valueOf(helper.getItemFromId(9)));
-                    Intent i = new Intent(this, AppsListActivity.class);
-                    startActivity(i);
-                } else {
-                    String a = helper.getItemFromId(9).getAppname();
-                    Log.v("appname :", a);
-                    Intent i = manager.getLaunchIntentForPackage(a);
-                    MainActivity.this.startActivity(i);
-                }
-                return true;
+            //書き換え考える
             case R.id.button1:
-                Log.d("TAG", "Button1 Touched!");
+                doAssign(1);
+                return true;
+            case R.id.button2:
+                doAssign(2);
+                return true;
+            case R.id.button3:
+                doAssign(3);
+                return true;
+            case R.id.button4:
+                doAssign(4);
+                return true;
+            case R.id.button5:
+                doAssign(5);
+                return true;
+            case R.id.button6:
+                doAssign(6);
+                return true;
+            case R.id.button7:
+                doAssign(7);
+                return true;
+            case R.id.button8:
+                doAssign(8);
+                return true;
+            case R.id.button9:
+                doAssign(9);
                 return true;
         }
          return false;
+     }
+
+     // ボタンにアプリの登録
+     private void doAssign(int i) {
+         // 新規登録
+         if (helper.getItemFromId(i) == null) {
+             AssignedFlg = 0;
+             Intent intentList = new Intent(this, AppsListActivity.class);
+             startActivity(intentList);
+         } else { //登録したアプリに遷移する
+             String a = helper.getItemFromId(i).getAppName();
+             AssignedFlg = 1;
+             Intent intentApp = manager.getLaunchIntentForPackage(a);
+             intentApp.putExtra("Flg", AssignedFlg);
+             MainActivity.this.startActivity(intentApp);
+         }
      }
  }
