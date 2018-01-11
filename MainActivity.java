@@ -20,7 +20,7 @@ import java.util.List;
     private AssignSQLiteOpenHelper helper;
     private PackageManager manager;
     // アプリ登録未登録での分岐用
-    private int AssignedFlg;
+    private int assignedFlg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +33,12 @@ import java.util.List;
         ConstraintLayout layout = findViewById(R.id.main_layout);
         layout.setBackground(wallpaper);
 
-
         manager = getPackageManager();
 
         helper = new AssignSQLiteOpenHelper(MainActivity.this);
 
         //for文化する
+        //ボタン長押しでアサインを削除する機能をついか（削除の際アラートを出す）
         findViewById(R.id.button1).setOnTouchListener(this);
         findViewById(R.id.button2).setOnTouchListener(this);
         findViewById(R.id.button3).setOnTouchListener(this);
@@ -52,8 +52,10 @@ import java.util.List;
 
     // アプリ一覧の表示
     public void showApps(View v) {
-         Intent i = new Intent(this, AppsListActivity.class);
-         startActivity(i);
+        Intent i = new Intent(this, AppsListActivity.class);
+        assignedFlg = 1;
+        i.putExtra("Flg", assignedFlg);
+        startActivity(i);
     }
 
      @Override
@@ -96,14 +98,20 @@ import java.util.List;
      private void doAssign(int i) {
          // 新規登録
          if (helper.getItemFromId(i) == null) {
-             AssignedFlg = 0;
+             assignedFlg = 0;
              Intent intentList = new Intent(this, AppsListActivity.class);
+             intentList.putExtra("Flg", assignedFlg);
+             intentList.putExtra("Id", i);
+  //           intentList.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
              startActivity(intentList);
+             //overridePendingTransition(0, 0);
          } else { //登録したアプリに遷移する
              String a = helper.getItemFromId(i).getAppName();
-             AssignedFlg = 1;
+             assignedFlg = 1;
              Intent intentApp = manager.getLaunchIntentForPackage(a);
-             intentApp.putExtra("Flg", AssignedFlg);
+             intentApp.putExtra("Flg", assignedFlg);
+             // assignのIDもputExtraする
+             // 全アプリ一覧ボタンに不具合、修正する
              MainActivity.this.startActivity(intentApp);
          }
      }

@@ -25,7 +25,8 @@ public class AppsListActivity extends AppCompatActivity {
     private PackageManager manager;
     private List<ListItem> apps;
     private ListView list;
-    private int AssignedFlg;
+    private int assignedFlg;
+    private int assignId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,8 @@ public class AppsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_apps_list);
 
         Intent i = getIntent();
-        AssignedFlg = i.getIntExtra("Flg", 0);
+        assignedFlg = i.getIntExtra("Flg", 0);
+        assignId = i.getIntExtra("Id", 0);
         loadApps();
         loadListView();
         addClickListener();
@@ -88,15 +90,16 @@ public class AppsListActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (AssignedFlg == 1) {
+                if (assignedFlg == 1) {
                     Intent i = manager.getLaunchIntentForPackage(apps.get(position).name.toString());
                     AppsListActivity.this.startActivity(i);
                 } else {
                     AssignSQLiteOpenHelper helper = new AssignSQLiteOpenHelper(AppsListActivity.this);
-                    Assign src = new Assign(1, apps.get(position).name.toString());
+                    Assign src = new Assign(assignId, apps.get(position).name.toString());
                     helper.insertAssign(src);
                     Intent i = new Intent(AppsListActivity.this, MainActivity.class);
                     startActivity(i);
+                    //overridePendingTransition(0, 0);
                 }
             }
         });
