@@ -29,14 +29,14 @@ public class AssignSQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
     //    DBからAssignを読み込む
-    public Assign getItemFromId(int argId) {
+    public Assign getItemFromId(int assignId) {
         Assign tmp = null;
         SQLiteDatabase db = getReadableDatabase();
-        Log.d("id", String.valueOf(argId));
+        Log.d("id", String.valueOf(assignId));
 //        if( db == null ) return tmp;
         try {
             Cursor cur = db.rawQuery("select id, app_name from ASSIGN " +
-                    "where id = ?", new String[]{String.valueOf(argId)});
+                    "where id = ?", new String[]{String.valueOf(assignId)});
             if (cur.moveToNext()) {
                 tmp = new Assign(cur.getInt(0), cur.getString(1));
             }
@@ -70,6 +70,35 @@ public class AssignSQLiteOpenHelper extends SQLiteOpenHelper {
             } finally {
                 db.close();
             }
+        }
+        return ret != -1;
+    }
+// 物理削除と論理削除 delflgの実装
+    public boolean deleteAssign(int assignId) {
+        long ret = -1;
+        SQLiteDatabase db = getReadableDatabase();
+        Log.d("id", String.valueOf(assignId));
+        try {
+            Cursor cur = db.rawQuery("delete from ASSIGN " +
+                    "where id = ?", new String[]{String.valueOf(assignId)});
+            cur.moveToFirst();
+
+            // debug db全データ出力
+            Cursor a = db.rawQuery("select * from ASSIGN", null);
+            Log.d("delete", String.valueOf(assignId));
+            if (a.moveToNext()) {
+                for (int i = 1; i <= a.getCount(); i++) {
+                    String id = String.valueOf(a.getInt(0));
+                    String name = a.getString(1);
+                    Log.d("id", id);
+                    Log.d("name", name);
+                    a.moveToNext();
+                }
+            }
+            a.close();
+
+        } finally {
+            db.close();
         }
         return ret != -1;
     }

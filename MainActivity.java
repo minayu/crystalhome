@@ -26,8 +26,18 @@ import java.util.List;
     private PackageManager manager;
     // アプリ登録未登録での分岐用
     private int assignedFlg;
+    private int longClickFlg = 0;
+    final private int btnNo1 = 1;
+    final private int btnNo2 = 2;
+    final private int btnNo3 = 3;
+    final private int btnNo4 = 4;
+    final private int btnNo5 = 5;
+    final private int btnNo6 = 5;
+    final private int btnNo7 = 7;
+    final private int btnNo8 = 8;
+    final private int btnNo9 = 9;
 
-    @Override
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -50,30 +60,160 @@ import java.util.List;
 
         helper = new AssignSQLiteOpenHelper(MainActivity.this);
 
+        // for文にする
         Button btn1 = findViewById(R.id.button1);
-        // 登録アプリのアプリ名、アイコン表示、起動
-        btn1.setOnTouchListener(new View.OnTouchListener() {
+        Button btn2 = findViewById(R.id.button2);
+        Button btn3 = findViewById(R.id.button3);
+        Button btn4 = findViewById(R.id.button4);
+        Button btn5 = findViewById(R.id.button5);
+        Button btn6 = findViewById(R.id.button6);
+        Button btn7 = findViewById(R.id.button7);
+        Button btn8 = findViewById(R.id.button8);
+        Button btn9 = findViewById(R.id.button9);
+
+
+        btn2.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 // TODO Auto-generated method stub
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     showAppInfo();
                 } else if(event.getAction() == MotionEvent.ACTION_UP) {
-                    doAssign(1);
-                    Log.v("OnTouch", "Touch Up");
+                    if (longClickFlg == 0) {
+                        doAssign(btnNo2);
+                    } else {
+                        longClickFlg = 0;
+                    }
                 }
                 return false;
             }
         });
 
+         btn3.setOnTouchListener(new View.OnTouchListener() {
+             @Override
+             public boolean onTouch(View v, MotionEvent event) {
+                 // TODO Auto-generated method stub
+                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                     showAppInfo();
+                 } else if(event.getAction() == MotionEvent.ACTION_UP) {
+                     doAssign(btnNo3);
+                 }
+                 return false;
+             }
+         });
+
+         btn4.setOnTouchListener(new View.OnTouchListener() {
+             @Override
+             public boolean onTouch(View v, MotionEvent event) {
+                 // TODO Auto-generated method stub
+                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                     showAppInfo();
+                 } else if(event.getAction() == MotionEvent.ACTION_UP) {
+                     doAssign(btnNo4);
+                 }
+                 return false;
+             }
+         });
+
+         btn5.setOnTouchListener(new View.OnTouchListener() {
+             @Override
+             public boolean onTouch(View v, MotionEvent event) {
+                 // TODO Auto-generated method stub
+                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                     showAppInfo();
+                 } else if(event.getAction() == MotionEvent.ACTION_UP) {
+                     doAssign(btnNo5);
+                 }
+                 return false;
+             }
+         });
+
+         btn5.setOnTouchListener(new View.OnTouchListener() {
+             @Override
+             public boolean onTouch(View v, MotionEvent event) {
+                 // TODO Auto-generated method stub
+                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                     showAppInfo();
+                 } else if(event.getAction() == MotionEvent.ACTION_UP) {
+                     doAssign(btnNo5);
+                 }
+                 return false;
+             }
+         });
+
+         btn6.setOnTouchListener(new View.OnTouchListener() {
+             @Override
+             public boolean onTouch(View v, MotionEvent event) {
+                 // TODO Auto-generated method stub
+                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                     showAppInfo();
+                 } else if(event.getAction() == MotionEvent.ACTION_UP) {
+                     doAssign(btnNo6);
+                 }
+                 return false;
+             }
+         });
+
+         btn7.setOnTouchListener(new View.OnTouchListener() {
+             @Override
+             public boolean onTouch(View v, MotionEvent event) {
+                 // TODO Auto-generated method stub
+                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                     showAppInfo();
+                 } else if(event.getAction() == MotionEvent.ACTION_UP) {
+                     doAssign(btnNo7);
+                 }
+                 return false;
+             }
+         });
+
+         btn8.setOnTouchListener(new View.OnTouchListener() {
+             @Override
+             public boolean onTouch(View v, MotionEvent event) {
+                 // TODO Auto-generated method stub
+                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                     showAppInfo();
+                 } else if(event.getAction() == MotionEvent.ACTION_UP) {
+                     doAssign(btnNo8);
+                 }
+                 return false;
+             }
+         });
+
+         btn9.setOnTouchListener(new View.OnTouchListener() {
+             @Override
+             public boolean onTouch(View v, MotionEvent event) {
+                 // TODO Auto-generated method stub
+                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                     showAppInfo();
+                 } else if(event.getAction() == MotionEvent.ACTION_UP) {
+                     doAssign(btnNo9);
+                 }
+                 return false;
+             }
+         });
+
+
+
         btn1.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                // 削除
-                deleteApp();
-                return false;
-            }
-        });
+             @Override
+             public boolean onLongClick(View v) {
+                 // 削除
+                 deleteApp(btnNo1);
+                 return true;
+             }
+         });
+
+         btn2.setOnLongClickListener(new View.OnLongClickListener() {
+             @Override
+             public boolean onLongClick(View v) {
+                 // 削除
+                 deleteApp(btnNo2);
+                 Log.d("longclick", "OK");
+                 longClickFlg = 1;
+                 return true;
+             }
+         });
 
         //for文化する
         //ボタン長押しでアサインを削除する機能をついか（削除の際アラートを出す）
@@ -102,9 +242,9 @@ import java.util.List;
     }
 
     // 登録アプリ削除
-     public void deleteApp() {
+     public void deleteApp(int id) {
         // アプリが登録されている場合咲くじぉする
-
+         helper.deleteAssign(id);
      }
 
 //     @Override
