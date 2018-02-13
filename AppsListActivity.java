@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +98,7 @@ public class AppsListActivity extends AppCompatActivity {
                     AssignSQLiteOpenHelper helper = new AssignSQLiteOpenHelper(AppsListActivity.this);
                     Assign src = new Assign(assignId, apps.get(position).name.toString());
                     helper.insertAssign(src);
+                    Toast.makeText(AppsListActivity.this, "Assign!", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(AppsListActivity.this, MainActivity.class);
                     startActivity(i);
                     //overridePendingTransition(0, 0);
