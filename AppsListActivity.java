@@ -29,6 +29,11 @@ public class AppsListActivity extends AppCompatActivity {
     private int assignedFlg;
     private int assignId;
 
+    //
+    //
+    // TODO アプリの一覧表示で1行に2~4コずつくらいで表示する
+    //
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
