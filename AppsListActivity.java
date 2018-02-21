@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,8 +25,10 @@ import java.util.List;
 public class AppsListActivity extends AppCompatActivity {
 
     private PackageManager manager;
+    // ListViewからGridViewへ
     private List<ListItem> apps;
-    private ListView list;
+//    private ListView list;
+    private GridView list;
     private int assignedFlg;
     private int assignId;
 
@@ -68,7 +71,8 @@ public class AppsListActivity extends AppCompatActivity {
     }
 
     private void loadListView() {
-        list = findViewById(R.id.apps_list);
+        //list = findViewById(R.id.apps_list);
+        list = findViewById(R.id.apps_grid);
 
         ArrayAdapter<ListItem> adapter = new ArrayAdapter<ListItem>(this, R.layout.list_item, apps) {
             @Override
@@ -81,8 +85,14 @@ public class AppsListActivity extends AppCompatActivity {
                 ImageView appIcon = convertView.findViewById(R.id.item_app_icon);
                 appIcon.setImageDrawable(apps.get(position).icon);
 
+<<<<<<< Updated upstream
                 TextView appLabel = convertView.findViewById(R.id.item_app_label);
                 appLabel.setText(apps.get(position).label);
+=======
+                // アプリ名はなくてもよさそう
+//                TextView appLabel = (TextView) convertView.findViewById(R.id.item_app_label);
+//                appLabel.setText(apps.get(position).label);
+>>>>>>> Stashed changes
 
 //                TextView appName = convertView.findViewById(R.id.item_app_name);
 //                appName.setText(apps.get(position).name);
