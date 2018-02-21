@@ -29,11 +29,6 @@ public class AppsListActivity extends AppCompatActivity {
     private int assignedFlg;
     private int assignId;
 
-    //
-    //
-    // TODO アプリの一覧表示で1行に2~4コずつくらいで表示する
-    //
-    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,8 +78,8 @@ public class AppsListActivity extends AppCompatActivity {
                 TextView appLabel = (TextView) convertView.findViewById(R.id.item_app_label);
                 appLabel.setText(apps.get(position).label);
 
-                TextView appName = convertView.findViewById(R.id.item_app_name);
-                appName.setText(apps.get(position).name);
+//                TextView appName = convertView.findViewById(R.id.item_app_name);
+//                appName.setText(apps.get(position).name);
 
                 return convertView;
             }
