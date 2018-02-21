@@ -32,6 +32,7 @@ public class AppsListActivity extends AppCompatActivity {
     //
     //
     // TODO アプリの一覧表示で1行に2~4コずつくらいで表示する
+    //      GridViewを使用
     //
     //
     @Override
@@ -77,14 +78,14 @@ public class AppsListActivity extends AppCompatActivity {
                     convertView = getLayoutInflater().inflate(R.layout.list_item, null);
                 }
 
-                ImageView appIcon = (ImageView) convertView.findViewById(R.id.item_app_icon);
+                ImageView appIcon = convertView.findViewById(R.id.item_app_icon);
                 appIcon.setImageDrawable(apps.get(position).icon);
 
-                TextView appLabel = (TextView) convertView.findViewById(R.id.item_app_label);
+                TextView appLabel = convertView.findViewById(R.id.item_app_label);
                 appLabel.setText(apps.get(position).label);
 
-                TextView appName = convertView.findViewById(R.id.item_app_name);
-                appName.setText(apps.get(position).name);
+//                TextView appName = convertView.findViewById(R.id.item_app_name);
+//                appName.setText(apps.get(position).name);
 
                 return convertView;
             }

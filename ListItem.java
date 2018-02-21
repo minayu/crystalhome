@@ -9,8 +9,10 @@ import android.graphics.drawable.Drawable;
 public class ListItem {
     //appName
     CharSequence label;
-    //com.***
+
+    // com.***
     CharSequence name;
+
     //appIconImage
     Drawable icon;
 }
